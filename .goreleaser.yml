@@ -1,6 +1,8 @@
 project_name: codesearch
 builds:
   - goos: [ linux, windows, darwin ]
+    env:
+      - CGO_ENABLED=0
 archives:
   - replacements:
       darwin: macOS
