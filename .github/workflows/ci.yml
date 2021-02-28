@@ -1,0 +1,28 @@
+name: CI
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  codesearch:
+    name: codesearch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup go 1.16
+        uses: actions/setup-go@v2
+        with: { go-version: 1.16.0 }
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download dependencies
+        run: go mod download
+      - name: Build UI
+        run: go generate
+
+      - name: Install golangci-lint & go-acc
+        run: curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.37.1
+      - name: Lint
+        run: golangci-lint run --verbose --config .github/.golangci.yml

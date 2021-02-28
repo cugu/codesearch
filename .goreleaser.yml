@@ -1,0 +1,29 @@
+project_name: codesearch
+builds:
+  - goos: [ linux, windows, darwin ]
+archives:
+  - replacements:
+      darwin: macOS
+      linux: Linux
+      windows: Windows
+    format_overrides:
+      - goos: windows
+        format: zip
+nfpms:
+  - replacements:
+      darwin: macOS
+      linux: Linux
+    homepage: "https://github.com/cugu/codesearch"
+    maintainer: Jonas Plum <git@jonasplum.de>
+    description: "A code search server."
+    license: MIT
+    formats:
+      - apk
+      - deb
+      - rpm
+dockers:
+  - goos: linux
+    goarch: amd64
+    image_templates:
+      - ghcr.io/cugu/codesearch
+    dockerfile: Dockerfile
