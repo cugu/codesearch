@@ -184,7 +184,7 @@ export default {
       this.open = -1;
 
       this.$nextTick(() => {
-        let q = 'http://localhost:8000/search?q=' + this.term + '&offset=' + (this.page - 1) * 10;
+        let q = '/search?q=' + this.term + '&offset=' + (this.page - 1) * 10;
         if (this.selectedRepo !== undefined) {
           q += '&repo=' + this.repositories[this.selectedRepo];
         }
@@ -226,7 +226,7 @@ export default {
         return
       }
 
-      this.$http.post('http://localhost:8000/index', {url: this.term});
+      this.$http.post('/index', {url: this.term});
     }
   }
 }
